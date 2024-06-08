@@ -14,5 +14,14 @@
 - 须在34行配置目录，例如：原先的运行目录是`E:\111\NapCat.win32.x64`，则填入`E:\\111`
 
 - 目录的最后一级名称一定要为`NapCat.win32.x64`
+
+- 如果不使用代理，则将代码中的
+  `    const client = axios.create({
+      /** 不用代理可以将下面这两行注释掉 */
+      httpAgent: httpAgent,
+      httpsAgent: httpsAgent,
+      followRedirect: true
+    });`
+  `httpAgent: httpAgent,`与`httpsAgent: httpsAgent,`注释掉，否则会抛出异常
 ## 使用方法
 放入plugins/example文件夹中即可
