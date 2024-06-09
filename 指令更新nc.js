@@ -25,7 +25,7 @@ export class napcat extends plugin {
       ]
     })
   }
-  async update(e) {
+  async update(e, bot) {
     const PROXY_HTTP = 'http://127.0.0.1:11451';
     const PROXY_HTTPS = 'http://127.0.0.1:11451';
     const httpAgent = new HttpProxyAgent(PROXY_HTTP);
@@ -44,6 +44,12 @@ export class napcat extends plugin {
     try {
       const resp = await client.get(api_url);
       const release_data = resp.data;
+      const latestVersion = release_data.tag_name;
+      const version = 'v' +  this.e.bot.version.app_version;
+      if (version === latestVersion) {
+        await e.reply(`已经是最新版了~\n当前版本:${version}`);
+        return;
+      }
       const win_asset = release_data.assets.find(asset => asset.name.includes('win'));
       if (!win_asset) {
         e.reply(`未找到对应release`);
